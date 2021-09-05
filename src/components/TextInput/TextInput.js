@@ -13,9 +13,9 @@ const TextInput = (props) => {
                     onChange={event => props.setCityValue(event)}
                     />
             <datalist id='select-city'>
-                {props.listCity.map(item => {
+                {/*props.listCity.map(item => {
                     return <option key={item.id} id={item.id} value={item.name} />
-                }) }
+                }) */}
             </datalist>
         </div>
     )
