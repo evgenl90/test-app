@@ -2,21 +2,24 @@ import React from 'react'
 
 
 const TextInput = (props) => {
-    
+
     return(
         <div className="col-sm-6">
-            <label htmlFor="firstName" className="form-label">{props.name}</label>
-            <input  type="text" 
+            <label htmlFor={!!props.label ? props.label : ''} className="form-label">{props.name}</label>
+            <input  type={props.type} 
                     className="form-control" 
-                    id="firstName" 
-                    value={props.itemCity} 
-                    onChange={event => props.setCityValue(event)}
+                    list={!!props.id ? props.id : ''}
+                    value={!!props.value ? props.value : ''} 
+                    onChange={!!props.setValue ? event => props.setValue(event) : ()=>{}}
                     />
-            <datalist id='select-city'>
-                {/*props.listCity.map(item => {
-                    return <option key={item.id} id={item.id} value={item.name} />
-                }) */}
-            </datalist>
+            {!!props.list ? (
+                <datalist id={props.id}>
+                    {props.list.map(item => {
+                        return <option key={item.id} id={item.id} value={item.name} />
+                    }) }
+                </datalist>
+            ) : 
+            ''}
         </div>
     )
 }

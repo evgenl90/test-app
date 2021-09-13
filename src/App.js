@@ -5,6 +5,7 @@ import Main from './components/Main/Main';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
+import SelectDrive from './components/SelectDrive/SelectDrive';
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
 
         <Route  path="/signup"  render={ () => 
           <Signup />
+        }/>
+
+        <Route  path="/selectDrive"  render={ () => 
+          <SelectDrive />
         }/>
         
       </div>

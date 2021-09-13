@@ -1,7 +1,8 @@
-import React from 'react'
-import {Router, Link} from "react-router-dom";
+import React, { useState } from 'react'
+import {Link} from "react-router-dom";
 
 const Header = () => {
+
     return(
         <header className="p-3 bg-dark text-white">
             <div className="container">
@@ -19,8 +20,18 @@ const Header = () => {
                     </ul>
 
                     <div className="text-end">
-                        <Link to="/login"><button type="button" className="btn btn-outline-light me-2">Войти</button></Link>
-                        <Link to="/signup"><button type="button" className="btn btn-warning">Зарегистрироваться</button></Link>
+                    {!localStorage.auth ? (
+                        <>
+                            <Link to="/login"><button type="button" className="btn btn-outline-light me-2">Войти</button></Link>
+                            <Link to="/signup"><button type="button" className="btn btn-warning">Зарегистрироваться</button></Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/cabinet"><button type="button" className="btn btn-outline-light me-2">Кабинет</button></Link>
+                            <Link to="/"><button type="button" className="btn btn-warning"  >Выйти</button></Link>
+                        </>
+                    )}
+                        
                     </div>
                 </div>
             </div>
