@@ -8,8 +8,8 @@ const Signup = () => {
         <main className="container main">
             <div className="py-5 rounded">
                 <h1>Регистрация</h1>
-                <TextInput type='text' name='Логин' />
-                <TextInput type='text' name='Пароль' />
+                <TextInput type='text' label='Логин' />
+                <TextInput type='text' label='Пароль' />
                 <Button text='Зарегистрироваться' />
             </div>
             <Link className="text-black text-decoration-none" to='/login'>Уже зарегистрирован? | Войти</Link>

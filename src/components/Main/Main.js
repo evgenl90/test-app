@@ -3,7 +3,7 @@ import { useEffect } from 'react/cjs/react.development'
 import Button from '../Button/Button'
 import TextInput from '../TextInput/TextInput'
 //import citiesJson from '../../data/cities.json';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 const Main = () => {
     //console.log(citiesJson)
@@ -36,33 +36,38 @@ const Main = () => {
     },[])*/
     const [itemFromCity, setFromCity] = useState('');
     const [itemToCity, setToCity] = useState('');
-    //let [listCity, setCityList] = useState([]);
-    let [search, setSearch] = useState(null);
+    //const [listCity, setCityList] = useState([]);
+    const [auth, setAuth] = useState(localStorage.auth);
+    const [redirect, setRedirect] = useState(false);
+
     const setFromCityValue = (value) => {
         setFromCity(value.target.value)
     }
     const setToCityValue = (value) => {
         setToCity(value.target.value)
     }
-    let link = Boolean(localStorage.auth) ? "/selectDrive" : "/login"
-
-    let setLocal = (search) => {
-        //setSearch(1)
-        localStorage.search = search
+    
+    let link = !!localStorage.auth ? "/selectDrive" : "/login"
+    let handleSubmit = (event) => {
+        event.preventDefault();
+        localStorage.search = 'search'
+        setRedirect(true) 
     }
+    
 
     return(
-        <main className="container main">
+        <form className="container main" onSubmit={handleSubmit}>
             <div className="py-5 rounded">
                 <h1>Выберите поездку</h1>
-                <TextInput type='text' name='Откуда' label='first' id='select-from-city' value={itemFromCity} list={cities} setValue={setFromCityValue} />
-                <TextInput type='text' name='Куда' label='two' id='select-to-city' value={itemToCity} list={cities} setValue={setToCityValue} />
+                <TextInput type='text' label='Откуда' name='first' id='select-from-city' value={itemFromCity} list={cities} setValue={setFromCityValue} />
+                <TextInput type='text' label='Куда' name='two' id='select-to-city' value={itemToCity} list={cities} setValue={setToCityValue} />
                 <div className="col-sm-6">
                     <input type="datetime-local" className="form-control mt-4" required />
                 </div>
-                <Button text='Найти' onClick={setLocal(search)}  />
+                <Button type='submit' text='Найти' />
+                {redirect ? <Redirect to={link} /> : ''}
             </div>
-        </main>
+        </form>
 
     )
 }

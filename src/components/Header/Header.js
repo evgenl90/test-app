@@ -1,8 +1,17 @@
+import { render } from '@testing-library/react';
 import React, { useState } from 'react'
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 const Header = () => {
-
+    const [auth, setAuth] = useState(localStorage.auth);
+    const [redirect, setRedirect] = useState(false);
+    
+    let handleSubmit = (event) => {
+        event.preventDefault();
+        setRedirect(true)
+        localStorage.auth = ''
+        setAuth('') 
+    }
     return(
         <header className="p-3 bg-dark text-white">
             <div className="container">
@@ -20,7 +29,7 @@ const Header = () => {
                     </ul>
 
                     <div className="text-end">
-                    {!localStorage.auth ? (
+                    {!auth ? (
                         <>
                             <Link to="/login"><button type="button" className="btn btn-outline-light me-2">Войти</button></Link>
                             <Link to="/signup"><button type="button" className="btn btn-warning">Зарегистрироваться</button></Link>
@@ -28,7 +37,11 @@ const Header = () => {
                     ) : (
                         <>
                             <Link to="/cabinet"><button type="button" className="btn btn-outline-light me-2">Кабинет</button></Link>
-                            <Link to="/"><button type="button" className="btn btn-warning"  >Выйти</button></Link>
+                            
+                            <form onSubmit={handleSubmit} style={{display: 'inline-block'}}>
+                                <button type="submit" className="btn btn-warning" >Выйти</button>
+                                {redirect ? <Redirect to='/' /> : ''}
+                            </form>   
                         </>
                     )}
                         

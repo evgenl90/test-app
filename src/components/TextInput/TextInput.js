@@ -5,12 +5,13 @@ const TextInput = (props) => {
 
     return(
         <div className="col-sm-6">
-            <label htmlFor={!!props.label ? props.label : ''} className="form-label">{props.name}</label>
+            <label htmlFor={!!props.label ? props.label : ''} className="form-label">{props.label}</label>
             <input  type={props.type} 
                     className="form-control" 
                     list={!!props.id ? props.id : ''}
                     value={!!props.value ? props.value : ''} 
                     onChange={!!props.setValue ? event => props.setValue(event) : ()=>{}}
+                    required
                     />
             {!!props.list ? (
                 <datalist id={props.id}>
